@@ -13,8 +13,7 @@ public class MovieRentSysTester {
  
     @Parameters
     public static Collection<Object[]> data(){
-    return Arrays.asList(new Object[][]{{1,0,0,1.5,1},{0,1,0,2,1}});
-    	//		return Arrays.asList(new Object[][] {{ 0, 0 }, { 1, 1 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 5 }, { 6, 8 }   });
+    return Arrays.asList(new Object[][]{{1,0,0,1.5,1},{0,1,0,2,1},{0,0,1,3,1},{4,0,0,3,1},{0,3,0,3.5,1},{0,0,2,6,2},{4,3,2,12.5,4}});
     }
     
     private int _children;
@@ -33,10 +32,16 @@ public class MovieRentSysTester {
     }
 	
 	@Test
-	public void test() {
+	public void testStatement() {
 		String expectedEnds="Amount owed is "+ String.valueOf(_totalAmount)+"\n"+"You earned "+String.valueOf(_frequentRenterPoints)+" frequent renter points";
 		
 		assertEquals(true,CreatCustomer().statement().endsWith(expectedEnds));
+	}
+	
+	@Test
+	public void testHtmlStatement(){
+		String expectedEnds="<P>You owe<EM> "+String.valueOf(_totalAmount)+"</EM><P>\n"+"On this rental you earned <EM>"+String.valueOf(_frequentRenterPoints)+"</EM> frequent renter points<P>";
+		assertEquals(true,CreatCustomer().htmlStatement().endsWith(expectedEnds));
 	}
 	
 	private Customer CreatCustomer(){
